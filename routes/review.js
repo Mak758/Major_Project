@@ -19,7 +19,7 @@ const reviewController = require("../controllers/reviews.js");
 router.delete(
   "/:reviewId", 
   isLoggedIn,
-  isReviewauther,
+  isReviewauthor,
   wrapAsync(reviewController.destroyReview)
 );
 
