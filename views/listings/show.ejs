@@ -106,7 +106,7 @@
         </form>
         <% } %>
 
-        <% if(listing.review > 0) { %>
+        <% if(listing.reviews.length > 0) { %>
         <div class="row">
             <p><b>All Reviews</b></p>
             <% for(review of listing.reviews) { %>
@@ -118,7 +118,6 @@
                     data-rating="<%= review.rating %>"
                     ></p>
                     <p class="card-text"><%= review.comment %></p>
-                    <!-- <p class="card-text"><%= review.rating %>stars</p> -->
                 </div>
 
                 <form class="mb-2" method="POST" 
