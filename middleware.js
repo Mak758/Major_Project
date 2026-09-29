@@ -52,7 +52,7 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
-module.exports.isReviewAuther = async(req, res, next) => {
+module.exports.isReviewauther = async(req, res, next) => {
   const { id, reviewId } = req.params;
   let review = await Review.findById(reviewId);
   if(!review.Auther._id.equals(res.locals.currUser._id)) {
