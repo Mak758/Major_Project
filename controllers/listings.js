@@ -19,7 +19,7 @@ module.exports.showListing = async (req, res) => {
     const listing = await Listing.findById(id)
     .populate({path:"reviews",
       populate: {
-        path: "Auther",
+        path: "author",
       },
     })
     .populate("owner");
