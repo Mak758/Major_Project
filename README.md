@@ -28,10 +28,11 @@ An Airbnb-style full-stack web app where users can list places, browse stays, se
 4. Start the server: `node app.js`
 
 ## 📸 Screenshots
-<img width="1366" height="768" alt="SCREEN-1" src="https://github.com/user-attachments/assets/e2559901-4744-49b3-8175-bc2a0d666741" />
-<img width="1366" height="768" alt="listing" src="https://github.com/user-attachments/assets/219f7f11-8fde-48bb-a179-66067718dea8" />
-<img width="1366" height="768" alt="Rating" src="https://github.com/user-attachments/assets/26d1d16f-675b-4ad4-bf0e-2fb7df915a98" />
-<img width="1366" height="768" alt="map-2" src="https://github.com/user-attachments/assets/dfaaa607-02ff-4e2d-babf-e804183c5f59" />
+<img width="1351" height="639" alt="SCREEN-1" src="https://github.com/user-attachments/assets/1e310a5e-749a-451d-8d0b-039a276eb1ce" />
+<img width="1354" height="636" alt="listing" src="https://github.com/user-attachments/assets/b53cce60-068f-40b5-9965-44d0adeb9a89" />
+<img width="1353" height="630" alt="Rating" src="https://github.com/user-attachments/assets/cea957a4-bbe8-4db6-bfcd-4afcf02b31bf" />
+<img width="1348" height="632" alt="map-2" src="https://github.com/user-attachments/assets/937c72d4-83d1-4b25-96e4-eca5fda810f0" />
+
 
 
 
