@@ -15,7 +15,7 @@
   "type": "commonjs",
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.16.2",
-    "cloudinary": "^1.41.3",
+    "cloudinary": "^2.11.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
@@ -29,7 +29,7 @@
     "mongodb": "^7.6.0",
     "mongoose": "^9.9.3",
     "multer": "^2.4.0",
-    "multer-storage-cloudinary": "^4.0.0",
+    "multer-storage-cloudinary-v2": "^1.0.3",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^9.1.0"
