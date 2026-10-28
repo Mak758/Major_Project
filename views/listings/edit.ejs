@@ -26,10 +26,10 @@
                 <label for="description" class="form-label">Description:</label>
                 <textarea 
                     id="description" 
-                    value="<%= listing.description %>" 
                     name="listing[description]" 
-                    class="form-control" required>
-                </textarea>
+                    class="form-control"
+                    required
+                ><%= listing.description %></textarea>
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please provide a valid description.</div>
             </div>
