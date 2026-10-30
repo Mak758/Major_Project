@@ -4,29 +4,47 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
-const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+  const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+  const category = typeof req.query.category === "string"
+    ? req.query.category.trim()
+    : "";
 
-let filter = {};
+  const filter = {};
 
-if (q) {
+  if (q) {
     const escapedQuery = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const searchRegex = new RegExp(escapedQuery, "i");
 
-    filter = {
-        $or: [
-            { title: searchRegex },
-            { location: searchRegex },
-            { country: searchRegex }
-        ]
-    };
-}
+    filter.$or = [
+      { title: searchRegex },
+      { location: searchRegex },
+      { country: searchRegex }
+    ];
+  }
 
-const allListings = await Listing.find(filter);
+  const allowedCategories = [
+    "Trending",
+    "Rooms",
+    "Iconic cities",
+    "Mountains",
+    "Castles",
+    "Amazing Pools",
+    "Camping",
+    "Farms",
+    "Arctic"
+  ];
 
-res.render("listings/index.ejs", {
+  if (allowedCategories.includes(category)) {
+    filter.category = category;
+  }
+
+  const allListings = await Listing.find(filter);
+
+  res.render("listings/index.ejs", {
     allListings,
-    q
-});
+    q,
+    category
+  });
 
 };
 

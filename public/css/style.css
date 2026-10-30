@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    flex: 1;;
+    flex: 1;
 }
 
 .navbar {
@@ -114,6 +114,9 @@ body {
 
 .btns {
     display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem;
 }
 
 .show-card {
@@ -124,5 +127,20 @@ body {
 /* Map */
 #map { 
     height: 400px;
-    width: 80vh; 
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Mobile Navbar */
+@media (max-width: 767.98px) {
+    .navbar {
+        height: auto;
+        min-height: 5rem;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100%;
+        background-color: white;
+        padding: 1rem;
+    }
 }

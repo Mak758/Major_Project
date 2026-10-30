@@ -27,10 +27,17 @@ const userRouter = require("./routes/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
-main().then(() => {
+main()
+    .then(() => {
         console.log('MongoDB connection established');
-    }).catch(err => {
-        console.log('Error connecting to MongoDB:', err);
+
+        app.listen(port, () => {
+            console.log(`Server is running on http://localhost:${port}`);
+        });
+    })
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1);
     });
 
 async function main() {
@@ -61,11 +68,12 @@ const sessionOption = {
   store,
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production"
   },
 };
 
@@ -106,9 +114,4 @@ app.use( (err, req, res, next) => {
   let { message = "Something went wrong", statusCode = 500 } = err;
   res.status(statusCode).render("error.ejs", { message });
   //res.status(statusCode).send(message);
-});
-
-//Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
 });

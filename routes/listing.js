@@ -6,15 +6,54 @@ const {isLoggedIn, isOwner, validateListing} = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 const multer  = require('multer');
 const {storage} = require("../cloudConfig.js");
-const upload = multer({ storage});
 
+const allowedMimeTypes = [
+    "image/png",
+    "image/jpeg",
+    "image/webp",
+    "image/avif",
+    "image/gif",
+    "image/bmp",
+    "image/tiff"
+];
+
+const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+        if (allowedMimeTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error("Only supported image files are allowed!"));
+        }
+    }
+});
+
+const handleUpload = (getRedirectPath) => {
+  return (req, res, next) => {
+    upload.single("listing[image]")(req, res, (err) => {
+      if (err) {
+        req.flash("error", err.message);
+
+        const redirectPath =
+        typeof getRedirectPath === "function"
+          ? getRedirectPath(req)
+          : getRedirectPath;
+
+        return req.session.save(() => {
+        res.redirect(redirectPath);
+    });
+      }
+      next();
+      });
+    };
+};
 
 router
 .route("/")
 .get(wrapAsync(listingController.index))
 .post(
   isLoggedIn,
-  upload.single("listing[image]"),
+  handleUpload("/listings/new"),
   validateListing,
   wrapAsync(listingController.createListing)
 );
@@ -32,7 +71,7 @@ router
 .put(
   isLoggedIn, 
   isOwner,
-  upload.single("listing[image]"),
+  handleUpload(req => `/listings/${req.params.id}/edit`),
   validateListing,
   wrapAsync(listingController.updateListing)
 )
