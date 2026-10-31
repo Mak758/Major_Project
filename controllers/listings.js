@@ -4,11 +4,14 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
+
   const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+
   const category = typeof req.query.category === "string"
     ? req.query.category.trim()
     : "";
 
+  // Search and Category Filter
   const filter = {};
 
   if (q) {
@@ -38,12 +41,43 @@ module.exports.index = async (req, res) => {
     filter.category = category;
   }
 
-  const allListings = await Listing.find(filter);
+  // Sorting
+  const allowedSorts = {
+    "price-asc": { price: 1 },
+    "price-desc": { price: -1 },
+    "newest": { createdAt: -1, _id: -1 }
+  };
+
+  const sort = typeof req.query.sort === "string"
+    ? req.query.sort
+    : "newest";
+
+  const sortOption = allowedSorts[sort] || allowedSorts.newest;
+
+  // Pagination
+  const limit = 12;
+  const totalListings = await Listing.countDocuments(filter);
+  const totalPages = Math.ceil(totalListings / limit);
+
+  let currentPage = parseInt(req.query.page, 10) || 1;
+
+  currentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
+
+  const skip = (currentPage - 1) * limit;
+
+  // Fetch Listings
+  const allListings = await Listing.find(filter)
+    .sort(sortOption)
+    .skip(skip)
+    .limit(limit);
 
   res.render("listings/index.ejs", {
     allListings,
     q,
-    category
+    category,
+    sort,
+    currentPage,
+    totalPages
   });
 
 };
