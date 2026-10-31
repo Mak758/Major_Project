@@ -7,6 +7,7 @@ if(process.env.NODE_ENV != "production"){
 
 const express = require('express');
 const app = express();
+app.set("trust proxy", 1);
 const port = 3000;
 const mongoose = require('mongoose');
 const path = require('path');
